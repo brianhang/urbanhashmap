@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "concurrently \"npm run dev-server\" \"npm run dev-app\"",
     "dev-app": "cd app && npm start",
-    "dev-server": "cd server && npm run dev",
+    "dev-server": "cd server && npm run start",
     "postinstall": "(cd server && npm install); (cd app && npm install)"
   },
   "author": "Brian Hang",
