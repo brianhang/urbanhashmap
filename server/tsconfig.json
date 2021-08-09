@@ -1,7 +1,7 @@
 {
   "type": "module",
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "lib": [
       "esnext"
     ],
@@ -16,7 +16,8 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": [
     "src"
