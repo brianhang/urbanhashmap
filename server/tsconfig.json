@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "compilerOptions": {
     "target": "es5",
     "lib": [
@@ -11,7 +12,7 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
+    "module": "commonjs",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "noEmit": true,
