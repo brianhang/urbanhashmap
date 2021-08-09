@@ -4,6 +4,7 @@
   "description": "API and web server",
   "main": "index.js",
   "scripts": {
+    "dev": "echo TODO"
   },
   "author": "Brian Hang",
   "license": "ISC"
