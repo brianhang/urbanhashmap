@@ -1,3 +1,5 @@
+import * as db from './db';
+
 import Koa from 'koa'
 import Router from 'koa-router';
 
@@ -9,6 +11,8 @@ router.get('/greeting', async ctx => {
 });
 
 app.use(router.routes());
+
+db.init();
 
 const port = app.env === 'development' ? 3001 : 3000;
 app.listen(port);
