@@ -1,0 +1,11 @@
+{
+  "name": "urbanhashmap",
+  "version": "1.0.0",
+  "description": "TODO",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "(cd server && npm install); (cd app && npm install)"
+  },
+  "author": "Brian Hang",
+  "license": "ISC"
+}

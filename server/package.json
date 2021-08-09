@@ -1,0 +1,10 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "API and web server",
+  "main": "index.js",
+  "scripts": {
+  },
+  "author": "Brian Hang",
+  "license": "ISC"
+}
