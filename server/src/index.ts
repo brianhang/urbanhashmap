@@ -4,7 +4,6 @@ import * as https from 'https';
 import * as login from './login';
 import Koa from 'koa';
 import Router from 'koa-router';
-import tlsConfig from '../tls_config.json';
 
 const app = new Koa();
 const router = new Router();
@@ -24,14 +23,14 @@ async function startServer() {
   let cert = null;
   try {
     [cert, key] = await Promise.all([
-      fs.readFile(tlsConfig.certPath),
-      fs.readFile(tlsConfig.keyPath),
+      fs.readFile(process.env.TLS_CERT_PATH!),
+      fs.readFile(process.env.TLS_KEY_PATH!),
     ]);
   } catch (error) {
     console.error('Failed to load key or cert file:', error);
     return;
   }
-  const port = app.env === 'development' ? 3001 : 3000;
+  const port = Number.parseInt(process.env.APP_PORT ?? '') ?? 3000;
   const serverOptions = {
     cert,
     key,

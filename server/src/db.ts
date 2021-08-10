@@ -1,16 +1,15 @@
-import dbconfig from '../dbconfig.json';
 import path from 'path';
 import { Sequelize } from 'sequelize-typescript';
 
 async function init() {
   const modelsPath = path.join(__dirname, 'models');
-  const { host, database, username, password } = dbconfig;
-  const sequelize = new Sequelize(
-    `postgres://${username}:${password}@${host}/${database}`,
-    {
-      models: [modelsPath],
-    }
-  );
+  const dbURL = process.env.DB_URL;
+  if (dbURL == null) {
+    throw new Error('DB_URL environment variable needs to be defined');
+  }
+  const sequelize = new Sequelize(dbURL, {
+    models: [modelsPath],
+  });
   try {
     await sequelize.sync();
     console.info('Connected to the database');

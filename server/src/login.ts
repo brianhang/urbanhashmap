@@ -1,4 +1,3 @@
-import fbLogin from '../fb_login.json';
 import passport from 'koa-passport';
 import session from 'koa-session';
 import User from './models/User';
@@ -40,12 +39,13 @@ async function verifyFBLogin(
 }
 
 function init(app: Koa, router: Router) {
+  const { FB_APP_ID, FB_APP_SECRET, FB_CALLBACK_HOST } = process.env;
   passport.use(
     new Strategy(
       {
-        clientID: fbLogin.appID,
-        clientSecret: fbLogin.appSecret,
-        callbackURL: `${fbLogin.callbackHost}${CALLBACK_PATH}`,
+        clientID: FB_APP_ID!,
+        clientSecret: FB_APP_SECRET!,
+        callbackURL: `${FB_CALLBACK_HOST!}${CALLBACK_PATH}`,
       },
       verifyFBLogin,
     )
@@ -65,7 +65,7 @@ function init(app: Koa, router: Router) {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  app.keys = [fbLogin.sessionSecret];
+  app.keys = [process.env.SESSION_SECRET!];
   app.use(session(app));
 
   router.get('/auth/facebook', passport.authenticate('facebook'));

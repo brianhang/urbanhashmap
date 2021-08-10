@@ -1,0 +1,39 @@
+version: "3.7"
+
+services:
+  app:
+    build: .
+    depends_on:
+      - postgres
+    environment:
+      NODE_ENV: development
+      DB_URL: "postgres://${DB_USERNAME}:${DB_PASSWORD}@postgres:5432/db"
+      APP_PORT: 3001
+      TLS_CERT_PATH: /keys/cert.pem
+      TLS_KEY_PATH: /keys/key.pem
+    ports:
+      - "3000:3000"
+    command: npm run dev
+    volumes:
+      - .:/project
+      - /project/node_modules
+      - /project/app/node_modules
+      - /project/server/node_modules
+      - ./keys/cert.pem:/keys/cert.pem
+      - ./keys/key.pem:/keys/key.pem
+    env_file:
+      - app.env
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: "${DB_USERNAME}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+      POSTGRES_DB: db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db:/var/lib/postgresql/data
+
+volumes:
+  db:
