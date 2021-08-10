@@ -5,7 +5,7 @@
   "main": "./src/index.ts",
   "scripts": {
     "serve": "ts-node src/index.ts",
-    "start": "nodemon"
+    "start": "nodemon --signal SIGTERM"
   },
   "author": "Brian Hang",
   "license": "ISC",

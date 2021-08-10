@@ -119,4 +119,5 @@ dist
 
 # App specific configs
 dbconfig.json
-facebook.json
+fb_login.json
+tls_config.json

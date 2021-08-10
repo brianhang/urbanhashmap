@@ -1,11 +1,15 @@
 import * as db from './db';
+import * as fs from 'fs/promises';
+import * as https from 'https';
 import * as login from './login';
-
-import Koa from 'koa'
+import Koa from 'koa';
 import Router from 'koa-router';
+import tlsConfig from '../tls_config.json';
 
 const app = new Koa();
 const router = new Router();
+
+login.init(app, router);
 
 router.get('/greeting', async ctx => {
   ctx.body = 'Hello, World!';
@@ -14,8 +18,30 @@ router.get('/greeting', async ctx => {
 app.use(router.routes());
 
 db.init();
-login.init(app);
 
-const port = app.env === 'development' ? 3001 : 3000;
-app.listen(port);
-console.info(`Started web server on port ${port}`);
+async function startServer() {
+  let key = null;
+  let cert = null;
+  try {
+    [cert, key] = await Promise.all([
+      fs.readFile(tlsConfig.certPath),
+      fs.readFile(tlsConfig.keyPath),
+    ]);
+  } catch (error) {
+    console.error('Failed to load key or cert file:', error);
+    return;
+  }
+  const port = app.env === 'development' ? 3001 : 3000;
+  const serverOptions = {
+    cert,
+    key,
+  };
+  try {
+    https.createServer(serverOptions, app.callback()).listen(port);
+    console.info(`Started web server on port ${port}`);
+  } catch (error) {
+    console.error('Failed to start web server:', error);
+  }
+}
+
+startServer();
