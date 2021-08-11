@@ -1,7 +1,7 @@
-import path from 'path';
 import { Sequelize } from 'sequelize-typescript';
+import path from 'path';
 
-async function init() {
+export default async function () {
   const modelsPath = path.join(__dirname, 'models');
   const dbURL = process.env.DB_URL;
   if (dbURL == null) {
@@ -18,7 +18,3 @@ async function init() {
     sequelize.close();
   }
 }
-
-export {
-  init,
-};

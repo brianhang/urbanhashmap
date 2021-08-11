@@ -1,11 +1,12 @@
-import * as db from './db';
 import * as fs from 'fs/promises';
 import * as https from 'https';
-import * as login from './login';
-import loadRoutes from './routes';
+
 import Koa from 'koa';
 import Router from 'koa-router';
 import type User from './models/User';
+import setupDatabase from './db';
+import setupFBLogin from './login';
+import setupRoutes from './routes';
 
 export interface AppReqState {
   user?: User;
@@ -16,16 +17,11 @@ export type AppRouter = Router<AppReqState, Koa.Context>;
 const app = new Koa<AppReqState, {}>();
 const router: AppRouter = new Router();
 
-login.init(app, router);
-
-router.get('/api/greeting', async ctx => {
-  ctx.body = ctx.state?.user?.name ?? 'Not Logged In';
-});
-
-loadRoutes(router);
+setupFBLogin(app, router);
+setupRoutes(router);
 app.use(router.routes());
 
-db.init();
+setupDatabase();
 
 async function startServer() {
   let key = null;
