@@ -11,7 +11,7 @@ const router = new Router();
 login.init(app, router);
 
 router.get('/greeting', async ctx => {
-  ctx.body = 'Hello, World!';
+  ctx.body = ctx.state?.user?.name ?? 'Not Logged In';
 });
 
 app.use(router.routes());
