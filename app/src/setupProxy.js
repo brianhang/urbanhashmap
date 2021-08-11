@@ -1,11 +1,16 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = app => {
-  const proxyMiddlewre = createProxyMiddleware({
+  const routes = [
+    '/api',
+    '/auth',
+    '/login',
+    '/logout',
+  ];
+  const proxyMiddleware = createProxyMiddleware({
     target: 'https://localhost:3001',
     changeOrigin: true,
     secure: false,
   });
-  app.use('/greeting', proxyMiddlewre);
-  app.use('/auth', proxyMiddlewre);
+  routes.forEach(route => app.use(route, proxyMiddleware));
 };

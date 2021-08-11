@@ -3,7 +3,7 @@ import session from 'koa-session';
 import User from './models/User';
 import { Profile, Strategy } from 'passport-facebook';
 import type Koa from 'koa';
-import type Router from 'koa-router';
+import type { AppRouter } from '.';
 
 const CALLBACK_PATH = '/auth/facebook/callback';
 
@@ -38,7 +38,7 @@ async function verifyFBLogin(
   }
 }
 
-function init(app: Koa, router: Router) {
+function init(app: Koa, router: AppRouter) {
   const { FB_APP_ID, FB_APP_SECRET, FB_CALLBACK_HOST } = process.env;
   passport.use(
     new Strategy(

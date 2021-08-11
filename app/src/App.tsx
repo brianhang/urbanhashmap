@@ -3,20 +3,34 @@ import './App.css';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
+type AppUser = {
+  id: number,
+  name: string,
+}
+
 function App() {
-  const [greeting, setGreeting] = useState<string | null>(null);
+  const [user, setUser] = useState<AppUser | null>(null);
 
   useEffect(() => {
-    async function fetchGreeting() {
-      const greeting = await fetch('/greeting');
-      setGreeting(await greeting.text());
+    async function fetchUser() {
+      const greeting = await fetch('/api/user');
+      setUser(await greeting.json());
     }
-    fetchGreeting();
-  }, [setGreeting]);
+    fetchUser();
+  }, [setUser]);
 
   return (
     <div className="App">
-      <p>{greeting ?? 'Loading...'}</p>
+      {
+        user != null
+          ? (
+            <div>
+              <h1>{user.name}</h1>
+              <a href="/logout">Logout</a>
+            </div>
+          )
+          : <a href="/login">Login with Facebook</a>
+      }
     </div>
   );
 }
