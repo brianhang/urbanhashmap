@@ -1,8 +1,11 @@
 import './App.css';
 
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+
 import { AppUserProvider } from './contexts/appUserContext';
+import HomePage from './pages/HomePage';
 import NavBar from './components/page/NavBar';
-import WordList from './components/word/WordList';
+import NotFoundPage from './pages/NotFoundPage';
 
 export type AppUser = {
   id: number,
@@ -22,7 +25,16 @@ function App() {
     <div className="app">
       <AppUserProvider fallback={<span>Loading</span>}>
         <NavBar />
-        <WordList />
+        <Router>
+          <Switch>
+            <Route exact path="/">
+              <HomePage />
+            </Route>
+            <Route path="*">
+              <NotFoundPage />
+            </Route>
+          </Switch>
+        </Router>
       </AppUserProvider>
     </div>
   );
