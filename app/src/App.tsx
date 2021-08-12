@@ -1,36 +1,29 @@
 import './App.css';
 
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { AppUserProvider } from './contexts/appUserContext';
+import NavBar from './components/page/NavBar';
+import WordList from './components/word/WordList';
 
-type AppUser = {
+export type AppUser = {
   id: number,
   name: string,
 }
 
+export type AppWord = {
+  id: number,
+  word: string,
+  definition: string,
+  creatorID: number,
+  example?: string,
+}
+
 function App() {
-  const [user, setUser] = useState<AppUser | null>(null);
-
-  useEffect(() => {
-    async function fetchUser() {
-      const greeting = await fetch('/api/user');
-      setUser(await greeting.json());
-    }
-    fetchUser();
-  }, [setUser]);
-
   return (
-    <div className="App">
-      {
-        user != null
-          ? (
-            <div>
-              <h1>{user.name}</h1>
-              <a href="/logout">Logout</a>
-            </div>
-          )
-          : <a href="/login">Login with Facebook</a>
-      }
+    <div className="app">
+      <AppUserProvider fallback={<span>Loading</span>}>
+        <NavBar />
+        <WordList />
+      </AppUserProvider>
     </div>
   );
 }

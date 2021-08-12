@@ -4,8 +4,9 @@ import * as https from 'https';
 import Koa from 'koa';
 import Router from 'koa-router';
 import type User from './models/User';
+import bodyParser from 'koa-bodyparser';
 import setupDatabase from './db';
-import setupFBLogin from './login';
+import { setupFBLogin } from './login';
 import setupRoutes from './routes';
 
 export interface AppReqState {
@@ -16,6 +17,8 @@ export type AppRouter = Router<AppReqState, Koa.Context>;
 
 const app = new Koa<AppReqState, {}>();
 const router: AppRouter = new Router();
+
+app.use(bodyParser());
 
 setupFBLogin(app, router);
 setupRoutes(router);

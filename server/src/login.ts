@@ -39,7 +39,9 @@ async function verifyFBLogin(
   }
 }
 
-export default function (app: Koa, router: AppRouter) {
+export const PASSPORT_STRATEGY = 'facebook';
+
+export function setupFBLogin(app: Koa, router: AppRouter) {
   const { FB_APP_ID, FB_APP_SECRET, FB_CALLBACK_HOST } = process.env;
   passport.use(
     new Strategy(
@@ -69,10 +71,10 @@ export default function (app: Koa, router: AppRouter) {
   app.keys = [process.env.SESSION_SECRET!];
   app.use(session(app));
 
-  router.get('/auth/facebook', passport.authenticate('facebook'));
+  router.get('/auth/facebook', passport.authenticate(PASSPORT_STRATEGY));
   router.get(
     CALLBACK_PATH,
-    passport.authenticate('facebook', {
+    passport.authenticate(PASSPORT_STRATEGY, {
       successRedirect: '/',
       failureRedirect: '/login',
     })
