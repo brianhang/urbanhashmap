@@ -6,6 +6,7 @@ import { AppUserProvider } from './contexts/appUserContext';
 import HomePage from './pages/HomePage';
 import NavBar from './components/page/NavBar';
 import NotFoundPage from './pages/NotFoundPage';
+import SearchBar from './components/page/SearchBar';
 
 export type AppUser = {
   id: number,
@@ -24,8 +25,9 @@ function App() {
   return (
     <div className="app">
       <AppUserProvider fallback={<span>Loading</span>}>
-        <NavBar />
         <Router>
+          <NavBar />
+          <SearchBar />
           <Switch>
             <Route exact path="/">
               <HomePage />

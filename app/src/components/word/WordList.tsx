@@ -1,25 +1,17 @@
-import { useEffect, useState } from 'react';
-
-import { AppWord } from '../../App';
 import WordEntry from './WordEntry';
+import { useWordQuery } from '../../useWordQuery';
 
 interface Props {
-  query?: string,
-  creatorID?: number,
+  query?: string | null,
+  creatorID?: number | null,
 }
 
-export default function WordList(_props: Props) {
-  const [words, setWords] = useState<AppWord[]>([]);
-
-  useEffect(() => {
-    async function fetchWords() {
-      const words = await fetch('/api/words');
-      setWords(await words.json());
-    }
-    fetchWords();
-  }, [setWords]);
+export default function WordList({ query, creatorID }: Props) {
+  const [words, _inFlight] = useWordQuery({ query, creatorID });
 
   return <div className="word-list">
-    {words.map(word => <WordEntry key={word.id} word={word} />)}
+    {words.length > 0
+      ? words.map(word => <WordEntry key={word.id} word={word} />)
+      : <p>No words found.</p>}
   </div>
 }

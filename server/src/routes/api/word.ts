@@ -6,12 +6,18 @@ import Word from '../../models/Word';
 
 export default function (router: AppRouter, middlewares: AppMiddlewares) {
   router.get('/api/words/:query?', async ctx => {
-    const options = { where: {} as WhereAttributeHash<Word['_attributes']> };
+    const options = {
+      where: {} as WhereAttributeHash<Word['_attributes']>,
+      order: [
+        'word',
+        'id',
+      ],
+    };
 
     let wordQuery: string | null = ctx.params.query;
     if (wordQuery != null) {
       wordQuery = wordQuery.trim();
-      options.where.word = { [Op.iLike]: wordQuery };
+      options.where.word = { [Op.iLike]: `%${wordQuery}%` };
     }
     ctx.body = await Word.findAll(options);
   });
@@ -20,7 +26,7 @@ export default function (router: AppRouter, middlewares: AppMiddlewares) {
     if (ctx.isUnauthenticated()) {
       ctx.throw(401, 'You must be logged in to define a word!');
     }
-    console.log(ctx.request.body);
+
     let { word, definition } = ctx.request.body;
     word = (word as string).trim();
     if (word.length < 1) {
