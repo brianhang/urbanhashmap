@@ -8,26 +8,32 @@ import { useEffect } from 'react';
 type Props = {}
 
 export default function SearchBar(_props: Props) {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState<string | null>(null);
   const history = useHistory();
   const location = useLocation();
 
   useEffect(() => {
-    const unlisten = history.listen(location => {
-      const params = new URLSearchParams(location.search);
+    function setQueryFromURL(search: string) {
+      const params = new URLSearchParams(search);
       const urlQuery = params.get('q') ?? '';
       if (query !== urlQuery) {
         setQuery(urlQuery);
       }
-    });
+    }
+    const unlisten = history.listen(
+      location => setQueryFromURL(location.search),
+    );
+    if (query == null) {
+      setQueryFromURL(location.search);
+    }
     return unlisten;
-  }, [history, query]);
+  }, [history, location.search, query, setQuery]);
 
   const onSubmit = useCallback((ev: FormEvent) => {
     ev.preventDefault();
     const params = new URLSearchParams(location.search);
     const oldQuery = params.get('q') ?? '';
-    let newQuery = query.trim();
+    let newQuery = (query ?? '').trim();
     if (newQuery === oldQuery) {
       return;
     }
@@ -42,7 +48,7 @@ export default function SearchBar(_props: Props) {
           className="search-input"
           type="text"
           placeholder={'Search for a word\u2026'}
-          value={query}
+          value={query ?? ''}
           onChange={ev => setQuery(ev.target.value)}
         />
       </form>
