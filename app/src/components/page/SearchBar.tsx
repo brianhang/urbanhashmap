@@ -17,9 +17,9 @@ export default function SearchBar(_props: Props) {
   useEffect(() => {
     function setQueryFromURL(search: string) {
       const params = new URLSearchParams(search);
-      const urlQuery = params.get('q') ?? '';
+      const urlQuery = decodeURIComponent(params.get('q') ?? '');
       if (query !== urlQuery) {
-        setQuery(decodeURIComponent(urlQuery));
+        setQuery(urlQuery);
       }
     }
     const unlisten = history.listen(
@@ -34,7 +34,7 @@ export default function SearchBar(_props: Props) {
   const onSubmit = useCallback((ev: FormEvent) => {
     ev.preventDefault();
     const params = new URLSearchParams(location.search);
-    const oldQuery = params.get('q') ?? '';
+    const oldQuery = decodeURIComponent(params.get('q') ?? '');
     let newQuery = (query ?? '').trim();
     if (newQuery === oldQuery) {
       return;

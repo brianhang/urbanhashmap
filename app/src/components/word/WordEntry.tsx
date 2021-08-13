@@ -22,7 +22,7 @@ export default function WordEntry({ word, id }: Props) {
       const id = hash.substr(1);
       const element = document.getElementById(id);
       if (element != null) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        element.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
     }, 0);
     return () => clearTimeout(timeout);

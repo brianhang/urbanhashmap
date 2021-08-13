@@ -7,10 +7,10 @@ type Props = {}
 export const WORD_HASH_PREFIX = 'word-';
 
 export default function HomePage(_props: Props) {
-  const location = useLocation();
+  const { search } = useLocation();
   const urlParams = useMemo(
-    () => new URLSearchParams(location.search),
-    [location.search],
+    () => new URLSearchParams(search),
+    [search],
   );
 
   const wordQuery = decodeURIComponent(urlParams.get('q') ?? '');
