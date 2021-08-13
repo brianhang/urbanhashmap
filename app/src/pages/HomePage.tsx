@@ -13,6 +13,6 @@ export default function HomePage(_props: Props) {
     [location.search],
   );
 
-  const wordQuery = urlParams.get('q') ?? '';
+  const wordQuery = decodeURIComponent(urlParams.get('q') ?? '');
   return <WordList query={wordQuery} hashPrefix={WORD_HASH_PREFIX} />;
 }

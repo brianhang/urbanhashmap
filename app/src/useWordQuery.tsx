@@ -17,7 +17,7 @@ export function useWordQuery(options: Options): [AppWord[], boolean] {
     setInFlight(true);
     async function fetchWords() {
       try {
-        const response = await fetch(`/api/words/${query}`);
+        const response = await fetch(`/api/words/${encodeURIComponent(query)}`);
         const words = await response.json() as AppWord[];
         setWords(words);
       } finally {

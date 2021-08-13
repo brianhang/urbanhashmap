@@ -19,7 +19,7 @@ export default function SearchBar(_props: Props) {
       const params = new URLSearchParams(search);
       const urlQuery = params.get('q') ?? '';
       if (query !== urlQuery) {
-        setQuery(urlQuery);
+        setQuery(decodeURIComponent(urlQuery));
       }
     }
     const unlisten = history.listen(
@@ -39,7 +39,7 @@ export default function SearchBar(_props: Props) {
     if (newQuery === oldQuery) {
       return;
     }
-    params.set('q', newQuery);
+    params.set('q', encodeURIComponent(newQuery));
     history.push({ search: params.toString(), pathname: location.pathname });
   }, [history, location.pathname, location.search, query]);
 
