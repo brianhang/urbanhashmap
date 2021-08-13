@@ -3,6 +3,7 @@ import WordForm, { WordFormSubmission } from '../components/word/WordForm';
 import { AppWord } from '../appTypes';
 import Container from '../components/common/Container'
 import { WORD_HASH_PREFIX } from './HomePage';
+import { useAppUser } from '../contexts/appUserContext';
 import { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 
@@ -41,6 +42,7 @@ function DefineWordForm({ onSubmitted }: FormProps) {
 }
 
 export default function DefineWordPage(props: Props) {
+  const user = useAppUser();
   const history = useHistory();
   const onWordSubmitted = useCallback((word: AppWord) => {
     history.push({
@@ -48,7 +50,15 @@ export default function DefineWordPage(props: Props) {
       search: `?q=${word.word}`,
       hash: `${WORD_HASH_PREFIX}${word.id}`,
     });
-  }, [history])
+  }, [history]);
+
+  if (user == null) {
+    return (
+      <Container>
+        <p>You must be logged in to define a word.</p>
+      </Container>
+    );
+  }
 
   return (
     <Container>
