@@ -1,17 +1,12 @@
 import React, { createContext, useContext, useState } from 'react';
 
+import { AppUser } from '../appTypes';
 import { useEffect } from 'react';
-
-export type AppUser = {
-  id: number,
-  name: string,
-  fbid: string,
-};
 
 const AppUserContext = createContext<AppUser | null>(null);
 
 type Props = React.PropsWithChildren<{
-  fallback?: React.ReactNode | null,
+  fallback?: React.ReactNode,
 }>;
 
 export function AppUserProvider(props: Props) {

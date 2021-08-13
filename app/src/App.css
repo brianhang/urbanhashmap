@@ -9,27 +9,3 @@ body {
 .app {
   margin: 64px;
 }
-
-.word-container {
-  background-color: #fdfffc;
-  padding: 16px;
-  margin-bottom: 16px;
-  border-radius: 8px;
-  box-shadow: 0px 0px 8px rgba(0.0, 0.0, 0.0, 0.05);
-}
-
-.word-title {
-  color: #235789;
-  font-size: 1.5em;
-  margin: 0px 0px 0.25em 0px;
-}
-
-.word-definition {
-  font-size: 1em;
-  margin: 0px;
-}
-
-.word-example {
-  color: #93999d;
-  font-style: italic;
-}

@@ -1,0 +1,17 @@
+.word-example {
+  color: #93999d;
+  font-style: italic;
+  margin-bottom: 0px;
+}
+
+.word-highlight {
+  background-color: rgb(255, 254, 245);
+}
+
+.word-definition {
+  margin: 0;
+}
+
+.word-link {
+  text-decoration: none;
+}

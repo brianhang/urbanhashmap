@@ -27,18 +27,20 @@ export default function (router: AppRouter, middlewares: AppMiddlewares) {
       ctx.throw(401, 'You must be logged in to define a word!');
     }
 
-    let { word, definition } = ctx.request.body;
-    word = (word as string).trim();
+    let { word, definition, example } = ctx.request.body;
+    word = (new String(word)).trim();
     if (word.length < 1) {
       ctx.throw(400, 'Word cannot be empty');
     }
-    definition = (definition as string).trim();
+    definition = (new String(definition)).trim();
+    example = (new String(example ?? '')).trim();
     if (definition.length < 1) {
       ctx.throw(400, 'Definition cannot be empty');
     }
     const newWord = await Word.create({
       word,
       definition,
+      example,
       creatorID: ctx.state.user!.id,
     });
     ctx.body = newWord;

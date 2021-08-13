@@ -1,0 +1,31 @@
+.app-button {
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  padding: 8px 16px 8px 16px;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  transition: all 0.1s ease-out;
+}
+
+.app-button:hover {
+  filter: brightness(0.95);
+}
+
+.app-button:active {
+  filter: brightness(0.9);
+}
+
+.app-button:disabled {
+  opacity: 0.5;
+}
+
+.app-button-normal {
+  background-color: #eaedf0;
+}
+
+.app-button-primary {
+  background-color: #0082ff;
+  color: #ffffff;
+}

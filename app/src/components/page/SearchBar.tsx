@@ -3,6 +3,8 @@ import './SearchBar.css';
 import { FormEvent, useCallback, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
+import Container from '../common/Container';
+import Input from '../common/Input';
 import { useEffect } from 'react';
 
 type Props = {}
@@ -42,16 +44,15 @@ export default function SearchBar(_props: Props) {
   }, [history, location.pathname, location.search, query]);
 
   return (
-    <div className="search-container">
+    <Container noPadding={true}>
       <form onSubmit={onSubmit}>
-        <input
-          className="search-input"
+        <Input
           type="text"
           placeholder={'Search for a word\u2026'}
           value={query ?? ''}
           onChange={ev => setQuery(ev.target.value)}
         />
       </form>
-    </div>
+    </Container>
   );
 }

@@ -24,7 +24,7 @@ async function verifyFBLogin(
 ): Promise<void> {
   const fbid = profile.id;
   try {
-    const [user, _created] = await User.findOrCreate({
+    const [user] = await User.findOrCreate({
       where: {
         fbid,
       },

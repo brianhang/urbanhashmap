@@ -1,13 +1,6 @@
+import { AppWord } from './appTypes';
 import { useEffect } from 'react';
 import { useState } from 'react';
-
-export type AppWord = {
-  id: number,
-  word: string,
-  definition: string,
-  example?: string,
-  creatorID: number,
-}
 
 export type Options = {
   query?: string | null,

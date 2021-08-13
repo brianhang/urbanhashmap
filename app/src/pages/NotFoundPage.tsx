@@ -1,6 +1,6 @@
 type Props = {}
 
-export default function (_props: Props) {
+export default function NotFoundPage(_props: Props) {
   return (
     <div>
       <h1>404</h1>
