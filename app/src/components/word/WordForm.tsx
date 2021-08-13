@@ -17,12 +17,13 @@ type Props = Readonly<{
   example?: string,
   submitLabel: string,
   onSubmit?: (submission: WordFormSubmission) => void,
+  editOnly?: boolean,
 }>;
 
 export default function WordForm(props: Props) {
-  const [word, setWord] = useState('');
-  const [definition, setDefinition] = useState('');
-  const [example, setExample] = useState('');
+  const [word, setWord] = useState(props.word ?? '');
+  const [definition, setDefinition] = useState(props.definition ?? '');
+  const [example, setExample] = useState(props.example ?? '');
   const [inFlight, setInFlight] = useState(false);
 
   const parentOnSubmit = props.onSubmit;
@@ -50,6 +51,7 @@ export default function WordForm(props: Props) {
           minLength={1}
           value={word}
           onChange={e => setWord(e.target.value)}
+          disabled={props.editOnly}
         />
       </label>
       <p>

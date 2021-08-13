@@ -4,6 +4,7 @@ import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 
 import { AppUserProvider } from './contexts/appUserContext';
 import DefineWordPage from './pages/DefineWordPage';
+import EditWordPage from './pages/EditWordPage';
 import HomePage from './pages/HomePage';
 import NavBar from './components/page/NavBar';
 import NotFoundPage from './pages/NotFoundPage';
@@ -18,6 +19,9 @@ function App() {
           <Switch>
             <Route path="/define">
               <DefineWordPage />
+            </Route>
+            <Route path="/edit/:id">
+              <EditWordPage />
             </Route>
             <Route exact path="/">
               <SearchBar />

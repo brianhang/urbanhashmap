@@ -11,6 +11,10 @@
   font-family: inherit;
 }
 
+.app-input:disabled {
+  background-color: #eeefed;
+}
+
 .app-input-large {
   height: 1.25em;
 }
