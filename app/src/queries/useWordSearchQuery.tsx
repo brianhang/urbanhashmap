@@ -1,5 +1,6 @@
+import { useQuery, useQueryClient } from 'react-query';
+
 import { AppWord } from '../appTypes';
-import { useQuery } from 'react-query';
 
 export type Options = {
   query?: string | null,
@@ -12,5 +13,16 @@ async function fetchWords({ query }: Options) {
 }
 
 export default function useWordSearchQuery(options: Options) {
-  return useQuery(['words', options], async () => await fetchWords(options));
+  const queryClient = useQueryClient();
+  return useQuery(
+    ['words', options],
+    async () => await fetchWords(options),
+    {
+      onSuccess: words => {
+        words.forEach(
+          word => queryClient.setQueryData(['word', word.id], word),
+        );
+      },
+    }
+  );
 }
