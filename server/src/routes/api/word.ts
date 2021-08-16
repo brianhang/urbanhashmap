@@ -2,6 +2,7 @@ import { AppReqState, AppRouter } from '../..';
 import { Op, WhereAttributeHash } from 'sequelize';
 
 import { ParameterizedContext } from 'koa';
+import User from '../../models/User';
 import Word from '../../models/Word';
 import { getValidatedWordParams } from '../../utils/wordUtils';
 
@@ -27,6 +28,10 @@ export default function (router: AppRouter) {
         'word',
         'id',
       ],
+      include: {
+        model: User,
+        attributes: ['name'],
+      },
     };
 
     let wordQuery: string | null = ctx.params.query;
@@ -86,7 +91,7 @@ export default function (router: AppRouter) {
     }
     foundWord.setAttributes({
       definition,
-      example,
+      example: example ?? '',
     });
     ctx.body = await foundWord.save();
   });

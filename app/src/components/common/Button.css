@@ -9,6 +9,14 @@
   transition: all 0.1s ease-out;
 }
 
+.app-button-normal {
+  padding: 8px 16px 8px 16px;
+}
+
+.app-button-small {
+  padding: 4px 8px 4px 8px;
+}
+
 .app-button:hover {
   filter: brightness(0.95);
 }

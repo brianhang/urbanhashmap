@@ -9,3 +9,9 @@ body {
 .app {
   margin: 64px;
 }
+
+@media screen and (max-width: 600px) {
+  .app {
+    margin: 8px;
+  }
+}

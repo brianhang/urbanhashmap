@@ -16,16 +16,18 @@
 
 .nav-bar ul {
   padding: 0px;
+  margin-bottom: 0px;
 }
 
 .nav-bar li {
   flex: 1;
   list-style-type: none;
   text-align: center;
-  padding: 16px;
   font-size: 1.25em;
   display: inline-block;
   padding: 0px;
+  margin-right: 16px;
+  margin-bottom: 16px;
 }
 
 .nav-bar li a {
@@ -34,7 +36,6 @@
   color: #140A00;
   background-color: #fdfffc;
   padding: 8px;
-  margin-right: 8px;
   border-radius: 8px;
   box-shadow: 0px 0px 8px rgba(0.0, 0.0, 0.0, 0.05);
 }

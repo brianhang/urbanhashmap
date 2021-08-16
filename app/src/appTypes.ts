@@ -9,4 +9,9 @@ export type AppWord = {
   definition: string,
   creatorID: number,
   example?: string,
+  creator: {
+    name: string,
+  },
+  createdAt: string,
+  updatedAt: string,
 }

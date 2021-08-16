@@ -8,8 +8,11 @@ interface Props {
 }
 
 export default function WordList({ query, hashPrefix }: Props) {
-  const { data: words, isLoading } = useWordSearchQuery({ query });
+  const { data: words, isLoading, isError } = useWordSearchQuery({ query });
 
+  if (isError) {
+    return <div>Something went wrong! Please try refreshing the page.</div>;
+  }
   if (isLoading || words == null) {
     return <div>Loading{'\u2026'}</div>;
   }

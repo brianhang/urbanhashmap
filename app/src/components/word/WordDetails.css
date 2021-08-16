@@ -1,0 +1,11 @@
+.word-options {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  font-size: 0.8em;
+}
+
+.word-creator {
+  color: #93999d;
+}

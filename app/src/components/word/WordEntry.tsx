@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import { AppWord } from '../../appTypes';
 import Container from '../common/Container';
+import WordDetails from './WordDetails';
 import { useLayoutEffect } from 'react';
 
 interface Props {
@@ -37,6 +38,7 @@ export default function WordEntry({ word, id }: Props) {
       </Link>
       <p className="word-definition">{word.definition}</p>
       {word.example != null && <p className="word-example">{word.example}</p>}
+      <WordDetails word={word} />
     </Container>
   )
 }
