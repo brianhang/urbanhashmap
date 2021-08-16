@@ -8,7 +8,6 @@ export type WordFormSubmission = {
   word: string,
   definition: string,
   example: string | null,
-  setInFlight: (inFlight: boolean) => void,
 };
 
 type Props = Readonly<{
@@ -18,13 +17,13 @@ type Props = Readonly<{
   submitLabel: string,
   onSubmit?: (submission: WordFormSubmission) => void,
   editOnly?: boolean,
+  disabled?: boolean,
 }>;
 
 export default function WordForm(props: Props) {
   const [word, setWord] = useState(props.word ?? '');
   const [definition, setDefinition] = useState(props.definition ?? '');
   const [example, setExample] = useState(props.example ?? '');
-  const [inFlight, setInFlight] = useState(false);
 
   const parentOnSubmit = props.onSubmit;
   const onSubmit = useCallback(async (ev: FormEvent) => {
@@ -36,9 +35,8 @@ export default function WordForm(props: Props) {
       word,
       definition,
       example,
-      setInFlight,
     });
-  }, [word, definition, example, setInFlight, parentOnSubmit]);
+  }, [word, definition, example, parentOnSubmit]);
 
   return (
     <form onSubmit={onSubmit}>
@@ -77,7 +75,9 @@ export default function WordForm(props: Props) {
           />
         </label>
       </p>
-      <Button use="primary" type="submit" disabled={inFlight}>{props.submitLabel}</Button>
+      <Button use="primary" type="submit" disabled={props.disabled}>
+        {props.submitLabel}
+      </Button>
     </form>
   );
 }

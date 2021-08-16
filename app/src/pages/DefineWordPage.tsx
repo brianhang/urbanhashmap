@@ -3,8 +3,9 @@ import WordForm, { WordFormSubmission } from '../components/word/WordForm';
 import { AppWord } from '../appTypes';
 import Container from '../components/common/Container'
 import { WORD_HASH_PREFIX } from './HomePage';
-import { useAppUser } from '../contexts/appUserContext';
+import useAppUserQuery from '../queries/useAppUserQuery';
 import { useCallback } from 'react';
+import useDefineWordMutation from '../mutations/useDefineWordMutation';
 import { useHistory } from 'react-router-dom';
 
 type Props = {}
@@ -14,35 +15,22 @@ type FormProps = {
 };
 
 function DefineWordForm({ onSubmitted }: FormProps) {
+  const { isLoading, mutateAsync } = useDefineWordMutation();
   const onSubmit = useCallback(async (submission: WordFormSubmission) => {
-    const { setInFlight, word, definition, example } = submission;
-    let newWord = null;
-    setInFlight(true);
-    try {
-      const response = await fetch('/api/word', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          word,
-          definition,
-          example,
-        }),
-      });
-      newWord = (await response.json()) as AppWord;
-    } finally {
-      setInFlight(false);
-    }
+    const newWord = await mutateAsync(submission);
     if (onSubmitted != null) {
       onSubmitted(newWord);
     }
-  }, [onSubmitted]);
-  return <WordForm onSubmit={onSubmit} submitLabel="Add Word" />;
+  }, [mutateAsync, onSubmitted]);
+  return <WordForm
+    disabled={isLoading}
+    onSubmit={onSubmit}
+    submitLabel="Add Word"
+  />;
 }
 
 export default function DefineWordPage(props: Props) {
-  const user = useAppUser();
+  const { data: user } = useAppUserQuery();
   const history = useHistory();
   const onWordSubmitted = useCallback((word: AppWord) => {
     history.push({

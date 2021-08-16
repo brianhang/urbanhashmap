@@ -1,8 +1,8 @@
 import './App.css';
 
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 
-import { AppUserProvider } from './contexts/appUserContext';
 import DefineWordPage from './pages/DefineWordPage';
 import EditWordPage from './pages/EditWordPage';
 import HomePage from './pages/HomePage';
@@ -10,10 +10,12 @@ import NavBar from './components/page/NavBar';
 import NotFoundPage from './pages/NotFoundPage';
 import SearchBar from './components/page/SearchBar';
 
+const queryClient = new QueryClient();
+
 function App() {
   return (
     <div className="app">
-      <AppUserProvider fallback={<span>Loading</span>}>
+      <QueryClientProvider client={queryClient}>
         <Router>
           <NavBar />
           <Switch>
@@ -32,7 +34,7 @@ function App() {
             </Route>
           </Switch>
         </Router>
-      </AppUserProvider>
+      </QueryClientProvider>
     </div>
   );
 }

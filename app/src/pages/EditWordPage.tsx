@@ -1,12 +1,13 @@
 import WordForm, { WordFormSubmission } from '../components/word/WordForm';
-import { useCallback, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { AppWord } from '../appTypes';
 import Container from '../components/common/Container'
 import { WORD_HASH_PREFIX } from './HomePage';
-import { useAppUser } from '../contexts/appUserContext';
-import { useEffect } from 'react';
+import useAppUserQuery from '../queries/useAppUserQuery';
+import { useCallback } from 'react';
+import useEditWordMutation from '../mutations/useEditWordMutation';
+import useWordQuery from '../queries/useWordQuery';
 
 type Props = {
   word?: AppWord,
@@ -22,31 +23,15 @@ type FormProps = {
 };
 
 function EditWordForm({ word, onSubmitted }: FormProps) {
-  const { id } = word;
+  const { isLoading, mutateAsync } = useEditWordMutation();
   const onSubmit = useCallback(async (submission: WordFormSubmission) => {
-    const { setInFlight, definition, example } = submission;
-    let newWord = null;
-    setInFlight(true);
-    try {
-      const response = await fetch(`/api/word/${id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          definition,
-          example,
-        }),
-      });
-      newWord = (await response.json()) as AppWord;
-    } finally {
-      setInFlight(false);
-    }
+    const newWord = await mutateAsync({ ...submission, id: word.id });
     if (onSubmitted != null) {
       onSubmitted(newWord);
     }
-  }, [onSubmitted, id]);
+  }, [mutateAsync, onSubmitted, word.id]);
   return <WordForm
+    disabled={isLoading}
     onSubmit={onSubmit}
     submitLabel="Save Word"
     word={word.word}
@@ -57,10 +42,13 @@ function EditWordForm({ word, onSubmitted }: FormProps) {
 }
 
 export default function DefineWordPage(props: Props) {
-  const user = useAppUser();
   const history = useHistory();
-  const [loadedWord, setLoadedWord] = useState(props.word);
-  const [isFetchingWord, setIsFetchingWord] = useState(true);
+  const { id } = useParams<Params>();
+  const { data: user, isFetching: isFetchingUser } = useAppUserQuery();
+  const { data: word, isFetching: isFetchingWord } = useWordQuery(
+    Number.parseInt(id),
+  );
+
   const onWordSubmitted = useCallback((word: AppWord) => {
     history.push({
       pathname: '/',
@@ -68,31 +56,10 @@ export default function DefineWordPage(props: Props) {
       hash: `${WORD_HASH_PREFIX}${word.id}`,
     });
   }, [history]);
-  const { id } = useParams<Params>();
 
-  useEffect(() => {
-    if (loadedWord != null) {
-      setIsFetchingWord(false);
-      return;
-    }
-    let isMounted = true;
-    async function fetchWord() {
-      try {
-        const response = await fetch(`/api/word/${id}`);
-        const word = await response.json() as AppWord;
-        if (isMounted) {
-          setLoadedWord(word);
-        }
-      } finally {
-        if (isMounted) {
-          setIsFetchingWord(false);
-        }
-      }
-    }
-    fetchWord();
-    return () => { isMounted = false; };
-  }, [id, loadedWord, setIsFetchingWord, setLoadedWord]);
-
+  if (isFetchingUser) {
+    return null;
+  }
   if (user == null) {
     return (
       <Container>
@@ -108,7 +75,7 @@ export default function DefineWordPage(props: Props) {
       </Container>
     );
   }
-  if (loadedWord == null) {
+  if (word == null) {
     return (
       <Container>
         <p>The word you are looking for could not be found.</p>
@@ -118,8 +85,7 @@ export default function DefineWordPage(props: Props) {
 
   return (
     <Container>
-      {!isFetchingWord &&
-        <EditWordForm onSubmitted={onWordSubmitted} word={loadedWord} />}
+      <EditWordForm onSubmitted={onWordSubmitted} word={word} />
     </Container>
   );
 }

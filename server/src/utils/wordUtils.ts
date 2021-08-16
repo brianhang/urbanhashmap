@@ -14,9 +14,9 @@ export function getValidatedWordParams(params: {
   }
 
 
-  let example: string | undefined = (new String(params.definition ?? ''))
+  let example: string | undefined = (new String(params.example ?? ''))
     .trim();
-  if (example !== '') {
+  if (example === '') {
     example = undefined;
   }
 
