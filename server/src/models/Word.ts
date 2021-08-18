@@ -1,6 +1,7 @@
-import { AllowNull, BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { AllowNull, BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from 'sequelize-typescript';
 
 import User from './User';
+import UserWordUpvote from './UserWordUpvote';
 
 @Table
 class Word extends Model<{
@@ -25,6 +26,9 @@ class Word extends Model<{
   @AllowNull
   @Column(DataType.TEXT)
   example?: string;
+
+  @HasMany(() => UserWordUpvote)
+  upvotes!: UserWordUpvote[];
 }
 
 export default Word;

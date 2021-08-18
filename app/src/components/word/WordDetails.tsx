@@ -12,7 +12,6 @@ type Props = Readonly<{
 export default function WordDetails({ word }: Props) {
   const { data: user } = useAppUserQuery();
   const isCreator = user?.id === word.creatorID;
-  console.log(Date.parse(word.createdAt), word.createdAt)
   const creationInfo = (
     <div className="word-creator">
       Defined by {word.creator.name}

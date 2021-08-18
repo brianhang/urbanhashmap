@@ -1,43 +1,57 @@
-import { AppReqState, AppRouter } from '../..';
-import { Op, WhereAttributeHash } from 'sequelize';
+import { FindOptions, Includeable, Op, Sequelize, WhereAttributeHash } from 'sequelize';
+import { fetchWordByIDParam, getValidatedWordParams } from '../../utils/wordUtils';
 
-import { ParameterizedContext } from 'koa';
+import { AppRouter } from '../..';
 import User from '../../models/User';
+import UserWordUpvote from '../../models/UserWordUpvote';
 import Word from '../../models/Word';
-import { getValidatedWordParams } from '../../utils/wordUtils';
 
 export default function (router: AppRouter) {
-  async function fetchWordByIDParam(ctx: ParameterizedContext<AppReqState>) {
-    const { id } = ctx.params;
-    const wordID = Number.parseInt(id);
-    if (isNaN(wordID) || wordID <= 0) {
-      ctx.throw(400, `"${id}" is not a valid word ID!`);
-    }
-    const foundWord = await Word.findByPk(wordID);
-    if (foundWord == null) {
-      console.log(wordID);
-      ctx.throw(404);
-    }
-    return foundWord;
-  }
-
   router.get('/api/words/:query?', async ctx => {
-    const options = {
-      where: {} as WhereAttributeHash<Word['_attributes']>,
+    const options: FindOptions<Word['_attributes']> = {
+      where: {},
       order: [
         'word',
         'id',
       ],
-      include: {
-        model: User,
-        attributes: ['name'],
+      include: [
+        {
+          model: User,
+          attributes: ['name'],
+        },
+      ],
+      attributes: {
+        include: [
+          [
+            Sequelize.literal(
+              '(SELECT COUNT(*) FROM "UserWordUpvotes"' +
+              'WHERE "UserWordUpvotes"."wordID" = "Word"."id")',
+            ),
+            'numUpvotes',
+          ],
+        ],
       },
     };
+
+    const { user } = ctx.state;
+    if (user != null) {
+      (options.include as Includeable[]).push({
+        model: UserWordUpvote,
+        attributes: ['id'],
+        where: {
+          userID: user.id,
+        },
+        required: false,
+        limit: 1,
+      });
+    }
 
     let wordQuery: string | null = ctx.params.query;
     if (wordQuery != null) {
       wordQuery = wordQuery.trim();
-      options.where.word = { [Op.iLike]: `%${wordQuery}%` };
+      (options.where as WhereAttributeHash<Word['_attributes']>).word = {
+        [Op.iLike]: `%${wordQuery}%`,
+      };
     }
     ctx.body = await Word.findAll(options);
   });

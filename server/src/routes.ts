@@ -2,6 +2,7 @@ import { AppRouter } from '.';
 import { IMiddleware } from 'koa-router';
 import { PASSPORT_STRATEGY } from './login';
 import loadLoginRoutes from './routes/login';
+import loadUpvoteRoutes from './routes/api/upvote';
 import loadUserAPIRoutes from './routes/api/user';
 import loadWordAPIRoutes from './routes/api/word';
 import passport from 'koa-passport';
@@ -15,6 +16,7 @@ export type AppMiddlewares = {
 export default function (router: AppRouter) {
   const routes: RouterLoader[] = [
     loadLoginRoutes,
+    loadUpvoteRoutes,
     loadUserAPIRoutes,
     loadWordAPIRoutes,
   ];

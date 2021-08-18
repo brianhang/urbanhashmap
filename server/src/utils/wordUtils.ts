@@ -1,3 +1,7 @@
+import { AppReqState } from '..';
+import { ParameterizedContext } from 'koa';
+import Word from '../models/Word';
+
 export function getValidatedWordParams(params: {
   word?: any,
   definition?: any,
@@ -25,4 +29,17 @@ export function getValidatedWordParams(params: {
     definition,
     example,
   };
+}
+
+export async function fetchWordByIDParam(ctx: ParameterizedContext<AppReqState>) {
+  const { id } = ctx.params;
+  const wordID = Number.parseInt(id);
+  if (isNaN(wordID) || wordID <= 0) {
+    ctx.throw(400, `"${id}" is not a valid word ID!`);
+  }
+  const foundWord = await Word.findByPk(wordID);
+  if (foundWord == null) {
+    ctx.throw(404);
+  }
+  return foundWord;
 }
