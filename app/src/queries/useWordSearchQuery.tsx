@@ -11,6 +11,7 @@ export type WordSearchQueryData = AppWord[];
 async function fetchWords({ query }: Options) {
   const response = await fetch(`/api/words/${encodeURIComponent(query ?? '')}`);
   const words = await response.json() as AppWord[];
+  words.sort((a, b) => (b.numUpvotes ?? 0) - (a.numUpvotes ?? 0));
   return words;
 }
 
