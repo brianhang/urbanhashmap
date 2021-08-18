@@ -11,5 +11,8 @@ async function fetchAppUser() {
 }
 
 export default function useAppUserQuery() {
-  return useQuery('app-user', fetchAppUser);
+  return useQuery('app-user', fetchAppUser, {
+    refetchOnMount: false,
+    staleTime: 600,
+  });
 }

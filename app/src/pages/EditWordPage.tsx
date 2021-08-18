@@ -41,7 +41,7 @@ function EditWordForm({ word, onSubmitted }: FormProps) {
   />;
 }
 
-export default function DefineWordPage(props: Props) {
+export default function DefineWordPage(_props: Props) {
   const history = useHistory();
   const { id } = useParams<Params>();
   const { data: user, isFetching: isFetchingUser } = useAppUserQuery();
