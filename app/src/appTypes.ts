@@ -1,7 +1,11 @@
 export type AppUser = {
   id: number,
   name: string,
-}
+};
+
+export type AppUserWordUpvote = {
+  id: number,
+};
 
 export type AppWord = {
   id: number,
@@ -14,4 +18,6 @@ export type AppWord = {
   },
   createdAt: string,
   updatedAt: string,
-}
+  numUpvotes?: number,
+  upvotes?: AppUserWordUpvote[],
+};

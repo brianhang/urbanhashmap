@@ -17,7 +17,7 @@ class UserWordUpvote extends Model<{
   wordID!: number;
 
   @BelongsTo(() => User)
-  creator!: User;
+  user!: User;
 
   @BelongsTo(() => Word)
   word!: Word;
