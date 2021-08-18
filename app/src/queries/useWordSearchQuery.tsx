@@ -6,6 +6,8 @@ export type Options = {
   query?: string | null,
 };
 
+export type WordSearchQueryData = AppWord[];
+
 async function fetchWords({ query }: Options) {
   const response = await fetch(`/api/words/${encodeURIComponent(query ?? '')}`);
   const words = await response.json() as AppWord[];
@@ -14,7 +16,7 @@ async function fetchWords({ query }: Options) {
 
 export default function useWordSearchQuery(options: Options) {
   const queryClient = useQueryClient();
-  return useQuery(
+  return useQuery<WordSearchQueryData>(
     ['words', options],
     async () => await fetchWords(options),
     {

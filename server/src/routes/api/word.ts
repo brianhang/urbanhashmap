@@ -24,7 +24,7 @@ export default function (router: AppRouter) {
         include: [
           [
             Sequelize.literal(
-              '(SELECT COUNT(*) FROM "UserWordUpvotes"' +
+              '(SELECT COUNT(*)::int FROM "UserWordUpvotes"' +
               'WHERE "UserWordUpvotes"."wordID" = "Word"."id")',
             ),
             'numUpvotes',
