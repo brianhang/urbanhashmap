@@ -8,7 +8,7 @@ import { useCallback } from 'react';
 import useDefineWordMutation from '../mutations/useDefineWordMutation';
 import { useHistory } from 'react-router-dom';
 
-type Props = {}
+type Props = Readonly<{}>;
 
 type FormProps = {
   onSubmitted?: (newWord: AppWord) => void,
@@ -29,7 +29,7 @@ function DefineWordForm({ onSubmitted }: FormProps) {
   />;
 }
 
-export default function DefineWordPage(props: Props) {
+export default function DefineWordPage(_props: Props) {
   const { data: user } = useAppUserQuery();
   const history = useHistory();
   const onWordSubmitted = useCallback((word: AppWord) => {

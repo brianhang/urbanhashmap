@@ -1,4 +1,4 @@
-import './WordUpvoteButton.css';
+import styles from './WordUpvoteButton.module.css';
 
 import { MouseEvent, useCallback } from 'react';
 
@@ -26,8 +26,8 @@ export default function WordUpvoteButton({ word }: Props) {
       size="small"
       onClick={onClick}
       disabled={isLoading}>
-      <span className="upvote-label">Upvote</span>
-      <span className="upvote-num">{numUpvotes}</span>
+      <span className={styles.label}>Upvote</span>
+      <span className={styles.num}>{numUpvotes}</span>
     </Button>
   );
 }

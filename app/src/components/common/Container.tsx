@@ -1,4 +1,4 @@
-import './Container.css';
+import styles from './Container.module.css';
 
 import React from 'react';
 import classNames from 'classnames';
@@ -11,8 +11,8 @@ type Props = React.PropsWithChildren<{
 
 export default function Container(props: Props) {
   const classes: { [key: string]: boolean } = {
-    'app-container': true,
-    'app-container-padding': !props.noPadding,
+    [styles.container]: true,
+    [styles.padding]: !props.noPadding,
   };
   if (props.className != null) {
     classes[props.className] = true;

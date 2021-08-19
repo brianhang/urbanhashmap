@@ -1,4 +1,4 @@
-import './Button.css';
+import styles from './Button.module.css';
 
 import classNames from 'classnames';
 
@@ -9,12 +9,32 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 export default function Button(props: Props) {
   const { use = 'normal', size = 'normal', ...buttonProps } = props;
+
+  let useClass;
+  switch (use) {
+    case 'normal':
+      useClass = styles.normalUse;
+      break;
+    case 'primary':
+      useClass = styles.primaryUse;
+      break;
+  }
+  let sizeClass;
+  switch (size) {
+    case 'normal':
+      sizeClass = styles.normalSize;
+      break;
+    case 'small':
+      sizeClass = styles.smallSize;
+      break;
+  }
+
   return (
     <button
       className={classNames({
-        'app-button': true,
-        [`app-button-${size}`]: true,
-        [`app-button-${use}`]: true,
+        [styles.button]: true,
+        [sizeClass]: true,
+        [useClass]: true,
       })}
       {...buttonProps}>
       {props.children}

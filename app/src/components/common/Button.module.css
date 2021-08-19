@@ -1,4 +1,4 @@
-.app-button {
+.button {
   border: none;
   outline: none;
   border-radius: 8px;
@@ -9,31 +9,31 @@
   transition: all 0.1s ease-out;
 }
 
-.app-button-normal {
+.normalSize {
   padding: 8px 16px 8px 16px;
 }
 
-.app-button-small {
+.smallSize {
   padding: 4px 8px 4px 8px;
 }
 
-.app-button:hover {
+.button:hover {
   filter: brightness(0.95);
 }
 
-.app-button:active {
+.button:active {
   filter: brightness(0.9);
 }
 
-.app-button:disabled {
+.button:disabled {
   opacity: 0.5;
 }
 
-.app-button-normal {
+.normalUse {
   background-color: #eaedf0;
 }
 
-.app-button-primary {
+.primaryUse {
   background-color: #0082ff;
   color: #ffffff;
 }

@@ -1,11 +1,11 @@
 import WordEntry from './WordEntry';
 import useWordSearchQuery from '../../queries/useWordSearchQuery';
 
-interface Props {
+type Props = Readonly<{
   query?: string | null,
   creatorID?: number | null,
   hashPrefix?: string,
-}
+}>;
 
 export default function WordList({ query, hashPrefix }: Props) {
   const { data: words, isLoading, isError } = useWordSearchQuery({ query });

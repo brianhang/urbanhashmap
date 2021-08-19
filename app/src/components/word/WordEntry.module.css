@@ -1,17 +1,17 @@
-.word-example {
+.example {
   color: #93999d;
   font-style: italic;
   margin-bottom: 0px;
 }
 
-.word-highlight {
+.highlight {
   background-color: rgb(255, 254, 245);
 }
 
-.word-definition {
+.definition {
   margin: 0;
 }
 
-.word-link {
+.link {
   text-decoration: none;
 }

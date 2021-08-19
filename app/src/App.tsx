@@ -1,4 +1,4 @@
-import './App.css';
+import styles from './App.module.css';
 
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
@@ -14,7 +14,7 @@ const queryClient = new QueryClient();
 
 function App() {
   return (
-    <div className="app">
+    <div className={styles.app}>
       <QueryClientProvider client={queryClient}>
         <Router>
           <NavBar />

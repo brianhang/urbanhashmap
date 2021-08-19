@@ -9,17 +9,17 @@ import { useCallback } from 'react';
 import useEditWordMutation from '../mutations/useEditWordMutation';
 import useWordQuery from '../queries/useWordQuery';
 
-type Props = {
+type Props = Readonly<{
   word?: AppWord,
-};
+}>;
+
+type FormProps = Readonly<{
+  word: AppWord,
+  onSubmitted?: (newWord: AppWord) => void,
+}>;
 
 type Params = {
   id: string,
-};
-
-type FormProps = {
-  word: AppWord,
-  onSubmitted?: (newWord: AppWord) => void,
 };
 
 function EditWordForm({ word, onSubmitted }: FormProps) {
@@ -41,7 +41,7 @@ function EditWordForm({ word, onSubmitted }: FormProps) {
   />;
 }
 
-export default function DefineWordPage(_props: Props) {
+export default function EditWordPage(_props: Props) {
   const history = useHistory();
   const { id } = useParams<Params>();
   const { data: user, isFetching: isFetchingUser } = useAppUserQuery();

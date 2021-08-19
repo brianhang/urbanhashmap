@@ -1,4 +1,4 @@
-import './WordEntry.css';
+import styles from './WordEntry.module.css';
 
 import { Link, useLocation } from 'react-router-dom';
 
@@ -6,11 +6,12 @@ import { AppWord } from '../../appTypes';
 import Container from '../common/Container';
 import WordDetails from './WordDetails';
 import { useLayoutEffect } from 'react';
+import classNames from 'classnames';
 
-interface Props {
+type Props = Readonly<{
   word: AppWord;
   id?: string,
-}
+}>;
 
 export default function WordEntry({ word, id }: Props) {
   const { pathname, search, hash } = useLocation();
@@ -32,12 +33,14 @@ export default function WordEntry({ word, id }: Props) {
   return (
     <Container
       id={id}
-      className={hash === `#${id}` ? 'word-highlight' : undefined}>
-      <Link className="word-link" to={{ hash: id, pathname, search }} replace>
+      className={classNames({
+        [styles.highlight]: hash === `#${id}`,
+      })}>
+      <Link className={styles.link} to={{ hash: id, pathname, search }} replace>
         <h1>{word.word}</h1>
       </Link>
-      <p className="word-definition">{word.definition}</p>
-      {word.example != null && <p className="word-example">{word.example}</p>}
+      <p className={styles.definition}>{word.definition}</p>
+      {word.example != null && <p className={styles.example}>{word.example}</p>}
       <WordDetails word={word} />
     </Container>
   )

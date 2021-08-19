@@ -1,16 +1,16 @@
-import './NavBar.css';
+import styles from './NavBar.module.css';
 
 import { Link } from 'react-router-dom';
 import useAppUserQuery from '../../queries/useAppUserQuery';
 
-interface Props { }
+type Props = Readonly<{}>;
 
 export default function NavBar(_props: Props) {
   const { data: user, isLoading: isLoadingUser } = useAppUserQuery();
   return (
-    <nav className="nav-bar">
+    <nav className={styles.navBar}>
       <ul>
-        <li><Link className="nav-title" to="/">UrbanHashmap</Link></li>
+        <li><Link className={styles.title} to="/">UrbanHashmap</Link></li>
         {!isLoadingUser && <>
           <li><Link to="/define">Define a Word</Link></li>
           <li>{user != null

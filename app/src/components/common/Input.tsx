@@ -1,7 +1,7 @@
-import './Input.css';
+import styles from './Input.module.css';
 
 type Props = {} & React.InputHTMLAttributes<HTMLInputElement>;
 
 export default function Input(props: Props) {
-  return <input className="app-input" {...props}>{props.children}</input>;
+  return <input className={styles.input} {...props}>{props.children}</input>;
 }

@@ -1,5 +1,3 @@
-import './SearchBar.css';
-
 import { FormEvent, useCallback, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 
@@ -7,7 +5,7 @@ import Container from '../common/Container';
 import Input from '../common/Input';
 import { useEffect } from 'react';
 
-type Props = {}
+type Props = Readonly<{}>;
 
 export default function SearchBar(_props: Props) {
   const [query, setQuery] = useState<string | null>(null);

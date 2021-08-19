@@ -1,4 +1,4 @@
-type Props = {}
+type Props = Readonly<{}>;
 
 export default function NotFoundPage(_props: Props) {
   return (
