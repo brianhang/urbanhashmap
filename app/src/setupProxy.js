@@ -8,7 +8,7 @@ module.exports = app => {
     '/logout',
   ];
   const proxyMiddleware = createProxyMiddleware({
-    target: 'https://localhost:3001',
+    target: 'http://localhost:3001',
     changeOrigin: true,
     secure: false,
   });
