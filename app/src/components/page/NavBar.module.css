@@ -44,3 +44,15 @@
   transition: all 0.2s ease;
   background-color: #eff1ee;
 }
+
+@media (prefers-color-scheme: dark) {
+  .navBar li a {
+    color: #f8f8f9;
+    background-color: #272721;
+  }
+
+  .navBar li a:hover {
+    transition: all 0.2s ease;
+    background-color: #494945;
+  }
+}

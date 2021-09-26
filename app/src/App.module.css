@@ -13,3 +13,10 @@ body {
     margin: 8px;
   }
 }
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #080807;
+    color: #f8f8f9;
+  }
+}

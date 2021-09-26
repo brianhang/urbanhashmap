@@ -18,3 +18,19 @@
 .input:focus {
   box-shadow: 0px 0px 8px rgba(68, 163, 255, 0.5);
 }
+
+@media (prefers-color-scheme: dark) {
+  .input {
+    background-color: #272721;
+    color: #f8f8f9;
+  }
+
+  .input:disabled {
+    background-color: #272721;
+    opacity: 0.5;
+  }
+
+  .input:focus {
+    box-shadow: 0px 0px 8px rgba(255, 255, 253, 0.5);
+  }
+}

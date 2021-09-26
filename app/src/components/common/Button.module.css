@@ -37,3 +37,14 @@
   background-color: #0082ff;
   color: #ffffff;
 }
+
+@media (prefers-color-scheme: dark) {
+  .normalUse {
+    background-color: #656560;
+  }
+
+  .primaryUse {
+    background-color: #888576;
+    color: #ffffff;
+  }
+}
