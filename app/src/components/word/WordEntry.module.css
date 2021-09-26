@@ -15,3 +15,9 @@
 .link {
   text-decoration: none;
 }
+
+@media (prefers-color-scheme: dark) {
+  .highlight {
+    background-color: #3e3e34;
+  }
+}
