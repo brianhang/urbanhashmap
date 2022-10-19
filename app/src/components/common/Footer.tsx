@@ -7,6 +7,8 @@ export default function Footer(_props: Props) {
         <div className={styles.footer}>
             <ul>
                 <li><a href="/privacy.html">Privacy Policy</a></li>
+                <li>&nbsp;&middot;&nbsp;</li>
+                <li><a href="/deletion.html">Data Deletion</a></li>
             </ul>
         </div>
     );
