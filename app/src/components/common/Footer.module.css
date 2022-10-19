@@ -1,0 +1,25 @@
+.footer {
+    margin-bottom: 16px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 8px rgba(0.0, 0.0, 0.0, 0.05);
+}
+
+.footer li {
+    text-align: center;
+    list-style-type: none;
+}
+
+.footer li a {
+    color: #140A00;
+    text-decoration: none;
+}
+
+.footer li a:hover {
+    text-decoration: underline;
+}
+
+@media (prefers-color-scheme: dark) {
+    .footer li a {
+        color: #f8f8f9;
+    }
+}

@@ -9,6 +9,7 @@ import HomePage from './pages/HomePage';
 import NavBar from './components/page/NavBar';
 import NotFoundPage from './pages/NotFoundPage';
 import SearchBar from './components/page/SearchBar';
+import Footer from './components/common/Footer';
 
 const queryClient = new QueryClient();
 
@@ -35,6 +36,7 @@ function App() {
           </Switch>
         </Router>
       </QueryClientProvider>
+      <Footer />
     </div>
   );
 }
