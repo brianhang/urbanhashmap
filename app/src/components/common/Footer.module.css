@@ -6,6 +6,10 @@
     font-size: smaller;
 }
 
+.footer ul {
+    padding: 0px;
+}
+
 .footer li {
     position: relative;
     display: inline;
